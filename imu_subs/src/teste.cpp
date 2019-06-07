@@ -31,11 +31,12 @@ ros::NodeHandle n;
 ros::Rate loop_rate(100);
 
 //Objects to use values from callback
-Listener Celular1, Celular2;
+Listener Imu1, Imu2, Imu3;
 
 //IMU SUBSCRIBER
-ros::Subscriber sub = n.subscribe("imu/data", 1000, &Listener::callback, &Celular1);
-ros::Subscriber sub2 = n.subscribe("edTopic", 1000, &Listener::callback, &Celular2);
+ros::Subscriber sub1 = n.subscribe("imu/data", 1000, &Listener::callback, &Imu1);
+//ros::Subscriber sub2 = n.subscribe("imu/data", 1000, &Listener::callback, &Imu2);
+//ros::Subscriber sub3 = n.subscribe("imu/data", 1000, &Listener::callback, &Imu2);	
 
 //DebugPublisher
 ros::Publisher pubRoll = n.advertise<std_msgs::Float64>("roll", 1000);
@@ -50,10 +51,10 @@ while (ros::ok()) {
 
 	ros::spinOnce();
 
-	ROS_INFO("\nROLL: [%.2f]\nPITCH: [%.2f]\n", Celular1.Roll*180/M_PI, Celular1.Pitch*180/M_PI);
+	ROS_INFO("\nROLL: [%.2f]\nPITCH: [%.2f]\n", Imu1.Roll*180/M_PI, Imu1.Pitch*180/M_PI);
 
-	roll.data = Celular1.Roll*180/M_PI;
-	pitch.data = Celular1.Pitch*180/M_PI;
+	roll.data = Imu1.Roll*180/M_PI;
+	pitch.data = Imu1.Pitch*180/M_PI;
 
 	pubRoll.publish(roll);
 	pubPitch.publish(pitch);
