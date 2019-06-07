@@ -42,7 +42,8 @@ int main(int argc, char **argv)
 	
 	Listener listener;//cria objeto do tipo listener;
 
-  ros::Subscriber sub = n.subscribe("chatter", 1000, &Listener::chatterCallback, &listener);
+	//Subscriber to get messages from android
+  	ros::Subscriber sub = n.subscribe("chatter", 1000, &Listener::chatterCallback, &listener);
  
 	//publisher das juntas
 
